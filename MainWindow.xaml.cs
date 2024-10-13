@@ -20,7 +20,7 @@ namespace WPFLabs
         {
             InitializeComponent();
             Hide();
-            new LoginWindow().Show();
+            new RegistrationWindow().Show();
             Close();
         }
     }
