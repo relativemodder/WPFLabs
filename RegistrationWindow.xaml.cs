@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFLabs.Repository;
 
 namespace WPFLabs
 {
@@ -19,16 +20,6 @@ namespace WPFLabs
     /// </summary>
     public partial class RegistrationWindow : Window
     {
-        private UserCredentialsValidator _emailValidator = new UserCredentialsValidator(
-            UserCredentialsValidator.CredentialsType.Email
-        );
-        private UserCredentialsValidator _passwordValidator = new UserCredentialsValidator(
-            UserCredentialsValidator.CredentialsType.Password
-        );
-        private UserCredentialsValidator _nameValidator = new UserCredentialsValidator(
-            UserCredentialsValidator.CredentialsType.Name
-        );
-
         public RegistrationWindow()
         {
             InitializeComponent();
@@ -41,27 +32,19 @@ namespace WPFLabs
             var password = PasswordTextBox.Password;
             var confirmPassword = ConfirmPasswordTextBox.Password;
 
-            if (password != confirmPassword)
+            try
             {
-                MessageBox.Show("Пароли не совпадают!", "Ошибка валидации", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                UserRepository.GetInstance().Register(new Entities.UserModel()
+                {
+                    Id = 0,
+                    Email = email,
+                    Name = name,
+                    Password = password
+                }, confirmPassword);
             }
-
-            if (!_emailValidator.IsValid(email))
+            catch (Exception ex)
             {
-                MessageBox.Show("Неверный формат Email!", "Ошибка валидации", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (!_passwordValidator.IsValid(password))
-            {
-                MessageBox.Show("Недопустимый пароль!", "Ошибка валидации", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (!_nameValidator.IsValid(name))
-            {
-                MessageBox.Show("Недопустимое имя!", "Ошибка валидации", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

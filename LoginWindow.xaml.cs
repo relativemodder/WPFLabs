@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
+using WPFLabs.Repository;
 
 namespace WPFLabs
 {
@@ -19,12 +21,6 @@ namespace WPFLabs
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private UserCredentialsValidator _emailValidator = new UserCredentialsValidator(
-            UserCredentialsValidator.CredentialsType.Email
-        );
-        private UserCredentialsValidator _passwordValidator = new UserCredentialsValidator(
-            UserCredentialsValidator.CredentialsType.Password
-        );
 
         public LoginWindow()
         {
@@ -36,15 +32,13 @@ namespace WPFLabs
             var email = EmailTextBox.Text;
             var password = PasswordTextBox.Password;
 
-            if (!_emailValidator.IsValid(email))
+            try
             {
-                MessageBox.Show("Неверный формат Email!", "Ошибка валидации", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                UserRepository.GetInstance().Login(email, password);
             }
-
-            if (!_passwordValidator.IsValid(password))
+            catch (Exception ex)
             {
-                MessageBox.Show("Недопустимый пароль!", "Ошибка валидации", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
