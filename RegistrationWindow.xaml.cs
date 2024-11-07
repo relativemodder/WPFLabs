@@ -34,13 +34,17 @@ namespace WPFLabs
 
             try
             {
-                UserRepository.GetInstance().Register(new Entities.UserModel()
+                var user = UserRepository.GetInstance()
+                                         .Register(
+                    new Entities.UserModel()
                 {
                     Id = 0,
                     Email = email,
                     Name = name,
                     Password = password
                 }, confirmPassword);
+
+                LocalStateRepository.GetInstance().SetUser(user);
             }
             catch (Exception ex)
             {

@@ -34,7 +34,9 @@ namespace WPFLabs
 
             try
             {
-                UserRepository.GetInstance().Login(email, password);
+                var user = UserRepository.GetInstance()
+                                         .Login(email, password);
+                LocalStateRepository.GetInstance().SetUser(user);
             }
             catch (Exception ex)
             {

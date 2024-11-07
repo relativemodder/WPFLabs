@@ -11,7 +11,7 @@ namespace WPFLabs.Repository
 {
     internal class UserRepository
     {
-        private static UserRepository? UserRepositoryInstance;
+        private static UserRepository UserRepositoryInstance = new UserRepository();
 
         private List<UserModel> _users = new List<UserModel>();
 
@@ -27,11 +27,6 @@ namespace WPFLabs.Repository
 
         public static UserRepository GetInstance()
         {
-            if (UserRepositoryInstance == null)
-            {
-                UserRepositoryInstance = new UserRepository();
-            }
-
             return UserRepositoryInstance;
         }
 
