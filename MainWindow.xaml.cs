@@ -81,6 +81,12 @@ namespace WPFLabs
 
             stateRepo.AddTask(testTask1);
             stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
 
 #pragma warning disable CS8602 // STFU
             string name = stateRepo.GetCurrentUser().Name;
