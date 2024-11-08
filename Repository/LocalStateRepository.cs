@@ -9,11 +9,14 @@ namespace WPFLabs.Repository
 {
     public class LocalStateRepository
     {
+        public delegate void TasksChangedDelegate();
+        public event TasksChangedDelegate? TasksChanged;
+
         private UserModel? user;
         private List<string> categories = new List<string>();
         private List<TaskModel> tasks = new List<TaskModel>();
 
-        public static LocalStateRepository Instance { get; private set; } = new LocalStateRepository();
+        private static LocalStateRepository Instance { get; set; } = new LocalStateRepository();
     
         public static LocalStateRepository GetInstance() { return Instance; }
 
@@ -55,11 +58,23 @@ namespace WPFLabs.Repository
         public void AddTask(TaskModel task)
         {
             tasks.Add(task);
+            UpdateTasks();
         }
 
         public void RemoveTask(TaskModel task)
         {
             tasks.Remove(task);
+            UpdateTasks();
+        }
+
+        public TaskModel? GetTask(int id)
+        {
+            return GetTasks().Find(x => x.Id == id);
+        }
+
+        public void UpdateTasks()
+        {
+            TasksChanged?.Invoke();
         }
     }
 }

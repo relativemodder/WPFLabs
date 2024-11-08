@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:WPFLabs.Components" 
              mc:Ignorable="d" 
              Height="50" d:DesignWidth="200">
-    <Grid>
-        <Border Background="White" CornerRadius="5"></Border>
+    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
+        <Border x:Name="TaskBlockBackground" Background="White" CornerRadius="5"></Border>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" />

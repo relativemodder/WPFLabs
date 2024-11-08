@@ -77,5 +77,16 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
+        <Grid Grid.Column="2">
+            <Grid Width="200" Height="340" x:Name="TaskPreviewContainer">
+                <!--
+                <components:TaskPreview>
+                    <components:TaskPreview.Effect>
+                        <DropShadowEffect Direction="-91" Opacity="0.3"/>
+                    </components:TaskPreview.Effect>
+                </components:TaskPreview>
+                -->
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

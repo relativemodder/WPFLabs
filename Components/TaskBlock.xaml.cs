@@ -21,7 +21,7 @@ namespace WPFLabs.Components
     /// </summary>
     public partial class TaskBlock : UserControl
     {
-        private TaskModel? task;
+        public TaskModel? Task;
 
         public TaskBlock()
         {
@@ -30,30 +30,46 @@ namespace WPFLabs.Components
 
         public void LoadData(TaskModel task)
         {
-            this.task = task;
+            this.Task = task;
             InitComponents();
         }
         
         private void InitComponents()
         {
-            if (task == null)
+            if (this.Task == null)
             {
                 return;
             }
-            TaskTitleTextBlock.Text = task.Name;
-            TaskTimeTextBlock.Text = task.Time.ToShortTimeString();
+            TaskTitleTextBlock.Text = this.Task.Name;
+            TaskTimeTextBlock.Text = this.Task.Time.ToShortTimeString();
 
             CompletedIcon.Visibility = Visibility.Collapsed;
             UncompletedIcon.Visibility = Visibility.Collapsed;
 
-            if (task.Completed)
+            if (this.Task.Completed)
             {
                 CompletedIcon.Visibility = Visibility.Visible;
+                TaskTitleTextBlock.TextDecorations = TextDecorations.Strikethrough;
+                TaskTimeTextBlock.TextDecorations = TextDecorations.Strikethrough;
             }
             else
             {
                 UncompletedIcon.Visibility = Visibility.Visible;
             }
+        }
+
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        {
+            TaskBlockBackground.Background = new SolidColorBrush(
+                Color.FromRgb(237, 237, 237)
+            );
+        }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            TaskBlockBackground.Background = new SolidColorBrush(
+                Color.FromRgb(255, 255, 255)
+            );
         }
     }
 }

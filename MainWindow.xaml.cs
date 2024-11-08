@@ -1,6 +1,7 @@
 ﻿using Entities;
 using System.ComponentModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -56,7 +57,7 @@ namespace WPFLabs
             stateRepo.AddCategory("Учёба");
             stateRepo.AddCategory("Отдых");
 
-            var testTask = new TaskModel()
+            var testTask1 = new TaskModel()
             {
                 Id = 1,
                 Category = "Дом",
@@ -67,13 +68,19 @@ namespace WPFLabs
                 Completed = true,
             };
 
-            stateRepo.AddTask(testTask);
-            stateRepo.AddTask(testTask);
-            stateRepo.AddTask(testTask);
-            stateRepo.AddTask(testTask);
-            stateRepo.AddTask(testTask);
-            stateRepo.AddTask(testTask);
-            stateRepo.AddTask(testTask);
+            var testTask2 = new TaskModel()
+            {
+                Id = 2,
+                Category = "Дом",
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                Time = new TimeOnly(10, 16),
+                Description = "test task 22у12пацупцупцупцупцуп",
+                Name = "Go touch grass",
+                Completed = false,
+            };
+
+            stateRepo.AddTask(testTask1);
+            stateRepo.AddTask(testTask2);
 
 #pragma warning disable CS8602 // STFU
             string name = stateRepo.GetCurrentUser().Name;
@@ -83,6 +90,13 @@ namespace WPFLabs
 
             InitCategories(stateRepo.GetCategories());
             InitTasks(stateRepo.GetTasks());
+
+            stateRepo.TasksChanged += StateRepo_TasksChanged;
+        }
+
+        private void StateRepo_TasksChanged()
+        {
+            InitTasks(LocalStateRepository.GetInstance().GetTasks());
         }
 
         private void InitTasks(List<TaskModel> tasks)
@@ -102,8 +116,42 @@ namespace WPFLabs
                     Direction = -90
                 };
 
+                taskBlock.MouseDown += TaskBlock_MouseDown;
+
                 TasksStackPanel.Children.Add(taskBlock);
             }
+        }
+
+        private void TaskBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var taskBlock = sender as TaskBlock;
+
+            if (taskBlock == null)
+            {
+                return;
+            }
+
+            if (taskBlock.Task == null)
+            {
+                return;
+            }
+
+            var task = taskBlock.Task;
+
+            var taskPreview = new TaskPreview();
+            taskPreview.LoadData(task);
+            taskPreview.Effect = new DropShadowEffect()
+            {
+                Direction = -90,
+                Opacity = 0.3
+            };
+
+            TaskPreviewContainer.Children.Clear();
+            TaskPreviewContainer.Children.Add(taskPreview);
+            taskPreview.TaskDeleted += () =>
+            {
+                TaskPreviewContainer.Children.Clear();
+            };
         }
 
         private void InitCategories(List<string> categories)
