@@ -23,5 +23,25 @@ namespace WPFLabs
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var taskCreation = new TaskCreationWindow();
+            var result = taskCreation.ShowDialog();
+
+            if (result == null)
+            {
+                return;
+            }
+
+            if (!(bool)result)
+            {
+                return;
+            }
+
+            Hide();
+            new MainWindow().Show();
+            Close();
+        }
     }
 }

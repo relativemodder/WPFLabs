@@ -22,7 +22,7 @@
             </TextBlock>
             <Grid Grid.Row="3">
                 <Button Height="50" Width="300" Margin="0,5,0,5" Foreground="White" 
-                    Background="#FFF96060" FontSize="16" BorderBrush="{x:Null}">
+                    Background="#FFF96060" FontSize="16" BorderBrush="{x:Null}" Click="Button_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>
