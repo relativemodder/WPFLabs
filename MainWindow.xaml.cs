@@ -21,34 +21,23 @@ namespace WPFLabs
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {      
+    {
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private enum CategoryType 
-        { 
-            Tasks, History
-        };
-        private CategoryType Category = CategoryType.History;
-
+        private UserModel testUser = UserRepository.GetInstance().Register(
+                new UserModel()
+                {
+                    Id = 1,
+                    Email = "user@mail.com",
+                    Password = "123456",
+                    Name = "Alex"
+                },
+                "123456"
+            );
 
         public MainWindow()
         {
-            var testUser = UserRepository.GetInstance().GetUserByEmail("user@mail.com");
-            if (testUser == null)
-            {
-                testUser = UserRepository.GetInstance().Register(
-                    new UserModel()
-                    {
-                        Id = 1,
-                        Email = "user@mail.com",
-                        Password = "123456",
-                        Name = "Alex"
-                    },
-                    "123456"
-                );
-            }
-
             var stateRepo = LocalStateRepository.GetInstance();
 
             stateRepo.SetUser(testUser);
@@ -61,22 +50,6 @@ namespace WPFLabs
                 return;
             }
 
-            var currentUser = stateRepo.GetCurrentUser();
-
-            if (currentUser == null)
-            {
-                // wtf??
-                return;
-            }
-
-            if (currentUser.Tasks.Count == 0)
-            {
-                Hide();
-                new MainEmptyWindow().Show();
-                Close();
-                return;
-            }
-
             InitializeComponent();
 
             stateRepo.AddCategory("Дом");
@@ -84,8 +57,42 @@ namespace WPFLabs
             stateRepo.AddCategory("Учёба");
             stateRepo.AddCategory("Отдых");
 
+            var testTask1 = new TaskModel()
+            {
+                Id = 1,
+                Category = "Дом",
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                Time = new TimeOnly(9, 16),
+                Description = "test task",
+                Name = "Go fishing with Stephen",
+                Completed = true,
+            };
 
-            UserNameTextBlock.Text = currentUser.Name;
+            var testTask2 = new TaskModel()
+            {
+                Id = 2,
+                Category = "Дом",
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                Time = new TimeOnly(10, 16),
+                Description = "test task 22у12пацупцупцупцупцуп",
+                Name = "Go touch grass",
+                Completed = false,
+            };
+
+            stateRepo.AddTask(testTask1);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+            stateRepo.AddTask(testTask2);
+
+#pragma warning disable CS8602 // STFU
+            string name = stateRepo.GetCurrentUser().Name;
+#pragma warning restore CS8602
+
+            UserNameTextBlock.Text = name;
 
             InitCategories(stateRepo.GetCategories());
             InitTasks(stateRepo.GetTasks());
@@ -95,14 +102,7 @@ namespace WPFLabs
 
         private void StateRepo_TasksChanged()
         {
-            List<TaskModel> newTasks = LocalStateRepository.GetInstance().GetTasks();
-
-            if (Category == CategoryType.History)
-            {
-                newTasks = LocalStateRepository.GetInstance().GetCompletedTasks();
-            }
-
-            InitTasks(newTasks);
+            InitTasks(LocalStateRepository.GetInstance().GetTasks());
         }
 
         private void InitTasks(List<TaskModel> tasks)
@@ -184,37 +184,6 @@ namespace WPFLabs
 
                 CategoriesStackPanel.Children.Add(categoryTextBlock);
             }
-        }
-
-        private void TasksTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Category = CategoryType.Tasks;
-            StateRepo_TasksChanged();
-        }
-
-        private void HistoryTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Category = CategoryType.History;
-            StateRepo_TasksChanged();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var taskCreation = new TaskCreationWindow();
-            var result = taskCreation.ShowDialog();
-
-            if (result == null)
-            {
-                return;
-            }
-
-            if (!(bool)result)
-            {
-                return;
-            }
-
-            Category = CategoryType.Tasks;
-            StateRepo_TasksChanged();
         }
     }
 }

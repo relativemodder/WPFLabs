@@ -14,6 +14,7 @@ namespace WPFLabs.Repository
 
         private UserModel? user;
         private List<string> categories = new List<string>();
+        private List<TaskModel> tasks = new List<TaskModel>();
 
         private static LocalStateRepository Instance { get; set; } = new LocalStateRepository();
     
@@ -51,23 +52,18 @@ namespace WPFLabs.Repository
 
         public List<TaskModel> GetTasks()
         {
-            return user.Tasks;
-        }
-
-        public List<TaskModel> GetCompletedTasks()
-        {
-            return GetTasks().FindAll(x => x.Completed);
+            return tasks;
         }
 
         public void AddTask(TaskModel task)
         {
-            user.Tasks.Add(task);
+            tasks.Add(task);
             UpdateTasks();
         }
 
         public void RemoveTask(TaskModel task)
         {
-            user.Tasks.Remove(task);
+            tasks.Remove(task);
             UpdateTasks();
         }
 

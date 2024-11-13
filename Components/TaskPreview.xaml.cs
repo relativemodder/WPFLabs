@@ -49,21 +49,6 @@ namespace WPFLabs.Components
             TimeTextBlock.Text = task.Time.ToShortTimeString();
             DateTextBlock.Text = task.Date.ToShortDateString();
             DescriptionTextBlock.Text = task.Description;
-            InitDoneButtonLabel();
-        }
-
-        private void InitDoneButtonLabel()
-        {
-            if (task.Completed)
-            {
-                DoneButton.Content = "Не готово";
-                DoneButton.Background = new SolidColorBrush(Color.FromRgb(200, 200, 200));
-            }
-            else
-            {
-                DoneButton.Content = "Готово";
-                DoneButton.Background = new SolidColorBrush(Color.FromRgb(249, 96, 96));
-            }
         }
 
         private void DoneButton_Click(object sender, RoutedEventArgs e)
@@ -72,7 +57,6 @@ namespace WPFLabs.Components
             var repoTask = stateRepo.GetTask(task.Id);
             repoTask.Completed = !task.Completed;
             stateRepo.UpdateTasks();
-            InitDoneButtonLabel();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

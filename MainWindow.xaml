@@ -34,10 +34,10 @@
                     <RowDefinition Height="45" />
                     <RowDefinition  />
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="TasksTextBlock" VerticalAlignment="Center" Margin="20,0,20,0" TextWrapping="Wrap" FontSize="16" Foreground="#FFA75252" TextAlignment="Center" MouseDown="TasksTextBlock_MouseDown">Задачи</TextBlock>
-                <TextBlock x:Name="HistoryTextBlock" Grid.Row="1" VerticalAlignment="Center" Margin="20,0,20,0" TextWrapping="Wrap" FontSize="16" Foreground="#FFA75252" TextAlignment="Center" MouseDown="HistoryTextBlock_MouseDown">История</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="20,0,20,0" TextWrapping="Wrap" FontSize="16" Foreground="#FFA75252" TextAlignment="Center">Задачи</TextBlock>
+                <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="20,0,20,0" TextWrapping="Wrap" FontSize="16" Foreground="#FFA75252" TextAlignment="Center">История</TextBlock>
             </Grid>
-            <Button Padding="0" Grid.Row="2" Width="50" Height="50" Background="Red" Foreground="White" FontSize="20" FontWeight="Bold" BorderBrush="#00707070" Click="Button_Click">
+            <Button Padding="0" Grid.Row="2" Width="50" Height="50" Background="Red" Foreground="White" FontSize="20" FontWeight="Bold" BorderBrush="#00707070">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="100"/>
