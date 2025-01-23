@@ -34,6 +34,8 @@ namespace WPFLabs
 
         public MainWindow()
         {
+            var stateRepo = LocalStateRepository.GetInstance();
+            /* 
             var testUser = UserRepository.GetInstance().GetUserByEmail("user@mail.com");
             if (testUser == null)
             {
@@ -49,9 +51,10 @@ namespace WPFLabs
                 );
             }
 
-            var stateRepo = LocalStateRepository.GetInstance();
 
             stateRepo.SetUser(testUser);
+
+            */
 
             if (!stateRepo.IsAuthorized())
             {
