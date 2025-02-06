@@ -6,9 +6,34 @@
       xmlns:local="clr-namespace:WPFLabs.View"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Background="White"
       Title="MainEmptyPage">
 
     <Grid>
-        
+        <Grid Width="450" Height="400">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" FontSize="36" VerticalAlignment="Center">
+            Добро пожаловать!
+            </TextBlock>
+            <TextBlock Grid.Row="1" FontSize="36" VerticalAlignment="Bottom" TextWrapping="Wrap">
+            Создайте свою первую задачу!
+            </TextBlock>
+            <Grid Grid.Row="3">
+                <Button Height="50" Width="300" Margin="0,5,0,5" Foreground="White" 
+                Background="#FFF96060" FontSize="16" BorderBrush="{x:Null}" Click="Button_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                    Создать первую задачу
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

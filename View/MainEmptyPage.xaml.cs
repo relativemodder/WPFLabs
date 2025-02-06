@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFLabs.Repository;
 
 namespace WPFLabs.View
 {
@@ -23,6 +24,25 @@ namespace WPFLabs.View
         public MainEmptyPage()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var taskCreation = new TaskCreationWindow();
+            var result = taskCreation.ShowDialog();
+
+            if (result == null)
+            {
+                return;
+            }
+
+            if (!(bool)result)
+            {
+                return;
+            }
+
+            var page = new MainPage();
+            LocalStateRepository.GetInstance().Frame?.Navigate(page);
         }
     }
 }

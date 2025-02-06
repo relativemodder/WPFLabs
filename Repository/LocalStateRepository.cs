@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace WPFLabs.Repository
 {
     public class LocalStateRepository
     {
+        public Frame? Frame { get; set; }
+
         public delegate void TasksChangedDelegate();
         public event TasksChangedDelegate? TasksChanged;
 
