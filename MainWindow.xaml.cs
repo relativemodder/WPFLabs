@@ -48,6 +48,7 @@ namespace WPFLabs
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+
         }
 
         private void MainFrame_Navigating(object sender, NavigatingCancelEventArgs e)
