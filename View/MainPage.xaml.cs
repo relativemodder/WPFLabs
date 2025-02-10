@@ -184,7 +184,14 @@ namespace WPFLabs.View
                 categoryTextBlock.Margin = new Thickness(20, 0, 20, 0);
                 categoryTextBlock.VerticalAlignment = VerticalAlignment.Center;
                 categoryTextBlock.FontSize = 16;
-                categoryTextBlock.Foreground = new SolidColorBrush(roundRobinColors[categoryIndex % categories.Count]);
+                try
+                {
+                    categoryTextBlock.Foreground = new SolidColorBrush(roundRobinColors[categoryIndex % categories.Count]);
+                }
+                catch
+                {
+
+                }
 
                 CategoriesStackPanel.Children.Add(categoryTextBlock);
             }
