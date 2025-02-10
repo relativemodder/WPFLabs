@@ -39,23 +39,23 @@ namespace WPFLabs.View
             var stateRepo = LocalStateRepository.GetInstance();
             
             
-            var testUser = UserRepository.GetInstance().GetUserByEmail("user@mail.com");
-            if (testUser == null)
-            {
-                testUser = UserRepository.GetInstance().Register(
-                    new UserModel()
-                    {
-                        Id = 1,
-                        Email = "user@mail.com",
-                        Password = "123456",
-                        Name = "Alex"
-                    },
-                    "123456"
-                );
-            }
-
-
-            stateRepo.SetUser(testUser);
+           // var testUser = UserRepository.GetInstance().GetUserByEmail("user@mail.com");
+           // if (testUser == null)
+           // {
+           //     testUser = UserRepository.GetInstance().Register(
+           //         new UserModel()
+           //         {
+           //             Id = 1,
+           //             Email = "user@mail.com",
+           //             Password = "123456",
+           //             Name = "Alex"
+           //         },
+           //         "123456"
+           //     );
+           // }
+           // 
+           // 
+           // stateRepo.SetUser(testUser);
 
             
 
