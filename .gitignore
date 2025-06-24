@@ -191,5 +191,9 @@ StyleCop.Cache
 bin
 obj
 
+**/bin
+**/obj
+
 .vs/
 .vscode/
+.obsidian/
